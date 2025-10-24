@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlowSkin Essentials - All In One</title>
+  <style>
+    /* === GLOBAL STYLES & FONT === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* === BASE BODY & SECTION STYLES === */
+    body {
+      /* Uses 'another.jpg' for background */
+      background: url('another.jpg') no-repeat center center/cover;
+      min-height: 100vh;
+      color: #000;
+    }
+    
+    /* Structure for page sections */
+    .page-section {
+      width: 100%;
+      min-height: 100vh;
+      display: none; /* Hide all sections by default */
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px; 
+      /* Ensures the background image remains visible on all "pages" */
+    }
+
+    /* Show the default section (Home) and the section matching the URL hash */
+    #home,
+    :target {
+      display: flex;
+    }
+
+    /* === HEADER/NAV BAR STYLES (from landing page.html) === */
+    header {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 80px;
+      z-index: 10;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 150px;
+      text-align: right;
+    }
+
+    .nav-links a {
+      text-decoration: underline;
+      color: black;
+      font-weight: bold;
+      font-size: 28px;
+      transition: color 0.2s ease;
+      text-align: right;
+    }
+
+    .nav-links a:hover {
+      color: #cb168f;
+      display: flex;
+    }
+
+    /* === 1. LANDING PAGE (HOME) STYLES (from landing page.html) === */
+    .hero {
+      display: flex;
+      align-items: center;
+      min-height: 80vh;
+      /* Set to flex-start to align content to the left */
+      justify-content: flex-start; 
+      padding: 100px 100px; /* Use the original padding for spacing */
+    }
+
+    .hero-text {
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center; 
+    }
+
+    .hero-text h1 {
+      font-size: 80px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .hero-text p {
+      font-size: 28px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Base button style (used for GET STARTED) */
+    .hero-text button {
+      background-color: #d18dc3;
+      color: white;
+      border: none;
+      padding: 18px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: center;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .hero-text button:hover {
+      background-color: #21071b;
+    }
+
+    /* === 2. ABOUT US STYLES (from about us.html) === */
+    .about-container {
+      background-color: rgba(216, 169, 185, 0.95);
+      width: 80%;
+      max-width: 900px;
+      padding: 40px;
+      border-radius: 15px;
+      border: 2px solid #5b9fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    /* The h1 style here overrides the generic h1 for About */
+    #about h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 20px;
+    }
+
+    #about p {
+      color: #333;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 20px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .mission {
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .mission h2 {
+      color: #5b66ff;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .mission p {
+      color: #100d0d;
+    }
+    
+    /* Specific Home button style from about us.html */
+    #about .btn-home { 
+      background-color: #6a70bd;
+      color: rgb(35, 24, 24);
+      border-radius: 5px;
+    }
+
+    #about .btn-home:hover {
+      background-color: #46485e;
+    }
+
+    /* === 3. CONTACT US STYLES (from contact.html) === */
+    .contact-container {
+      background-color: rgba(255, 240, 245, 0.95);
+      width: 85%;
+      max-width: 800px;
+      padding: 40px;
+      border-radius: 15px;
+      border: 2px solid #5b9fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    #contact h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #000;
+      margin-bottom: 20px;
+    }
+
+    #contact p {
+      color: #333;
+      line-height: 1.8;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    #contact input, #contact textarea {
+      width: 80%;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #aaa;
+      font-size: 16px;
+      background-color: #f9f9f9;
+      resize: none;
+    }
+
+    #contact input:focus, #contact textarea:focus {
+      outline: none;
+      border: 2px solid #5b66ff;
+    }
+
+    #contact button {
+      background-color: #5b66ff;
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    #contact button:hover {
+      background-color: #3741d9;
+    }
+
+    /* Common Home button style from contact.html */
+    .btn-home {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 25px;
+      background-color: #d18dc3; /* Reused from contact.html */
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn-home:hover {
+      background-color: #21071b;
+    }
+
+
+    /* === 4. LOG IN STYLES (from log in page.html) === */
+    .login-container {
+      background-color: rgba(255, 240, 245, 0.95);
+      width: 380px;
+      padding: 40px;
+      border-radius: 15px;
+      border: 2px solid #5b9fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    #login h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 25px;
+    }
+
+    .login-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #dcdcdc;
+      color: #333;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .login-container input::placeholder {
+      color: #5b9fff;
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    #login button {
+      width: 100%;
+      padding: 12px;
+      background-color: #5b66ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #login button:hover {
+      background-color: #3741d9;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 30px;
+        text-align: center;
+        /* Original setting from media query, keeping it for smaller screens */
+        justify-content: center; 
+      }
+
+      .hero-text h1 {
+        font-size: 80px;
+      }
+
+      .nav-links {
+        gap: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#home">HOME</a></li>
+        <li><a href="#about">ABOUT US</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        <li><a href="#login">LOG IN</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="page-section hero">
+    <div class="hero-text">
+      <h1>SKIN<br>CARE</h1>
+      <p>EXPLORE OUR RANGE OF GENTLE AND EFFECTIVE SKINCARE PRODUCTS</p>
+      <button id="getStartedBtn">GET STARTED</button>
+    </div>
+  </section>
+
+  <section id="about" class="page-section">
+    <div class="about-container">
+      <h1>ABOUT US</h1>
+      <p>
+        Welcome to <b>GlowSkin Essentials</b> your trusted partner in achieving radiant, healthy skin. 
+        We believe that everyone deserves to feel confident in their own skin. 
+        Our skincare line is made with gentle yet powerful ingredients that nurture and protect your skin’s natural beauty.
+      </p>
+
+      <div class="mission">
+        <h2>🌸 Our Mission</h2>
+        <p>
+          To create effective and affordable skincare products that promote self-care, confidence, 
+          and a natural glow. We are dedicated to using cruelty free and eco-friendly formulations 
+          for every skin type.
+        </p>
+      </div>
+
+      <div class="mission">
+        <h2>💧 Our Vision</h2>
+        <p>
+          To be the leading skincare brand that inspires people to embrace their natural beauty 
+          through simple, sustainable, and science-based products.
+        </p>
+      </div>
+
+      <a href="#home" class="btn-home">Back to Home</a>
+    </div>
+  </section>
+
+  <section id="contact" class="page-section">
+    <div class="contact-container">
+      <h1>CONTACT US</h1>
+      <p>
+        We’d love to hear from you! 💌  
+        Whether you have a question, feedback, or want to learn more about our products,  
+        please reach out using the form below.
+      </p>
+
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+        <button type="submit">SEND MESSAGE</button>
+      </form>
+
+      <a href="#home" class="btn-home">Back to Home</a>
+    </div>
+  </section>
+
+  <section id="login" class="page-section">
+    <div class="login-container">
+      <h1>LOG IN</h1>
+      <form id="loginForm"> <input type="email" placeholder="Enter your email" required>
+        <input type="password" placeholder="Enter your password" required>
+        <p class="forgot-password">Forgot password?</p>
+        <button type="submit">LOG IN</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // 1. Get Started Button Alert (from landing page.html)
+    document.getElementById("getStartedBtn").addEventListener("click", function() {
+      alert("Welcome! Let's explore our skincare collection.");
+    });
+
+    // 2. Contact Form Submission (from contact.html)
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Thank you for reaching out! We'll get back to you soon. 💖");
+      this.reset();
+    });
+
+    // 3. Login Form Submission (from log in page.html - modified for single-page nav)
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      // Simulates going back to the landing page (home section)
+      window.location.hash = "home"; 
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
